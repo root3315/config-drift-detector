@@ -68,9 +68,29 @@ python config_drift_detector.py config.yaml \
   -i env.PWD
 ```
 
+## Type checking
+
+By default, the tool uses deep type checking with numeric coercion. This means string "3.11" and number 3.11 are considered equivalent.
+
+### Strict type mode
+
+Require exact type matches with no coercion:
+
+```bash
+python config_drift_detector.py config.yaml --strict-types
+```
+
+### Disable deep checking
+
+Use simple equality comparison instead:
+
+```bash
+python config_drift_detector.py config.yaml --no-deep-check
+```
+
 ## Output options
 
-Verbose mode (shows matched keys too):
+Verbose mode (shows matched keys with normalization info):
 
 ```bash
 python config_drift_detector.py config.yaml -v
@@ -94,7 +114,6 @@ Honestly, I kept debugging issues where someone changed an env var in production
 
 ## Limitations
 
-- Doesn't do deep type checking (string "3.11" vs number 3.11 will mismatch)
 - YAML support needs pyyaml installed
 - Only handles flat or nested dict configs (no arrays at root level)
 
